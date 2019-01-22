@@ -1,8 +1,15 @@
+import Vue from 'vue';
+import ElementUI from 'element-ui';
+import 'element-ui/packages/theme-chalk/src/index.scss';
+
 import Platform from "xlb-platform";
 
 import module from '../src/index';
 
-let vue = Platform.getVue([
+Vue.use(ElementUI);
+Vue.use(Platform);
+
+let vueConfig = Platform.getVueConfig([
     {
         name: "system",
         path: "/system",
@@ -10,4 +17,5 @@ let vue = Platform.getVue([
         children: module.router
     }
 ]);
-vue.$mount("#app");
+
+new Vue(vueConfig).$mount("#app");

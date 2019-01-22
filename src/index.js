@@ -1,7 +1,27 @@
-import page from './BasePage';// 默认页面，层级路由需要每级路由的component 均包含 router-view
+import menu from './menu';
+import dic from './dictionary';
+import Resource from './resource';
+import page from './BasePage';
 
 let router = [
-    //路由配置信息
+    {
+        name: "menu",
+        path: "menu",
+        component: menu.page,
+        children: menu.router
+    },
+    {
+        name: "dic",
+        path: "dic",
+        component: dic.page,
+        children: dic.router
+    },
+    {
+        name: "resource",
+        path: "resource",
+        component: Resource.page,
+        children: Resource.router
+    }
 ];
 
 export default {
