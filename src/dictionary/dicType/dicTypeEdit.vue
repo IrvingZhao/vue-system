@@ -4,13 +4,16 @@
             <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item prop="code" label="编码">
-            <el-input v-model="form.code"></el-input>
+            <el-input v-model="form.code">
+                <template v-if="codePrepend" slot="prepend">{{codePrepend}}</template>
+            </el-input>
         </el-form-item>
         <el-form-item prop="desc" label="描述">
             <el-input type="textarea" :rows="2" v-model="form.desc"></el-input>
         </el-form-item>
         <el-form-item prop="parent" label="父字典项">
             <el-cascader v-model="form.parent" :options="dicTypes" filterable clearable change-on-select
+                         @change="parentSelect"
                          :props="{label:'name',value:'id'}"></el-cascader>
         </el-form-item>
         <el-form-item>
@@ -43,7 +46,7 @@
         },
         computed: {
             ...mapState("system_dic", [
-                "dicTypes"
+                "dicTypes", "dicTypeMap"
             ]),
             ...mapGetters("system_dic", [
                 "dicPath", "api"
@@ -51,6 +54,7 @@
         },
         data() {
             return {
+                codePrepend: "",
                 form: {
                     name: "",
                     code: "",
@@ -80,6 +84,10 @@
                     const {code, msg, data} = body;
                     if ("000000" === code) {
                         if (data && data.id) {
+                            let dataCode = data.code.split(".");
+                            console.info(dataCode);
+                            data.code = dataCode.pop();
+                            this.codePrepend = dataCode.join(".");
                             data.parent = this.dicPath(data.parent);
                             this.form = data;
                         } else {
@@ -97,6 +105,7 @@
                         let data = {...this.form};
                         data.parent = data.parent[data.parent.length - 1];
                         data.id = this.id;
+                        data.code = this.codePrepend + data.code;
                         this.api.dicType.save(data).then(({body}) => {
                             const {code, msg} = body;
                             if (code === "000000") {
@@ -118,6 +127,14 @@
             },
             reset() {
                 this.$refs.dicTypeForm.resetFields();
+            },
+            parentSelect(selectDicType) {
+                let parent = selectDicType[selectDicType.length - 1];
+                if (parent) {
+                    this.codePrepend = this.dicTypeMap[parent].code + ".";
+                } else {
+                    this.codePrepend = "";
+                }
             }
         }
     }
