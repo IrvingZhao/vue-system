@@ -105,7 +105,7 @@
                         let data = {...this.form};
                         data.parent = data.parent[data.parent.length - 1];
                         data.id = this.id;
-                        data.code = this.codePrepend + data.code;
+                        data.code = this.codePrepend + "." + data.code;
                         this.api.dicType.save(data).then(({body}) => {
                             const {code, msg} = body;
                             if (code === "000000") {
