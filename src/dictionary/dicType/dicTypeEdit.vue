@@ -17,7 +17,7 @@
                          :props="{label:'name',value:'id'}"></el-cascader>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="save">立即创建</el-button>
+            <el-button type="primary" @click="save">保存</el-button>
             <el-button @click="reset">重置</el-button>
         </el-form-item>
     </el-form>
@@ -45,12 +45,8 @@
             this.hasWatch = false;
         },
         computed: {
-            ...mapState("system_dic", [
-                "dicTypes", "dicTypeMap"
-            ]),
-            ...mapGetters("system_dic", [
-                "dicPath", "api"
-            ]),
+            ...mapState("system_dic", ["dicTypes", "dicTypeMap"]),
+            ...mapGetters("system_dic", ["api"]),
         },
         data() {
             return {
@@ -85,10 +81,9 @@
                     if ("000000" === code) {
                         if (data && data.id) {
                             let dataCode = data.code.split(".");
-                            console.info(dataCode);
                             data.code = dataCode.pop();
                             this.codePrepend = dataCode.join(".");
-                            data.parent = this.dicPath(data.parent);
+                            data.parent = this.$util.getTreePath(this.dicTypeMap, data.parent);
                             this.form = data;
                         } else {
                             this.$message({

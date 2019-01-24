@@ -8,15 +8,6 @@ export default {
         dicTypes: [],
     },
     getters: {
-        dicPath: (state) => (dicTypeId) => {
-            let pathArr = [dicTypeId];
-            let parent = state.dicTypeMap[dicTypeId];
-            while (parent) {
-                pathArr.push(parent.id);
-                parent = parent.parentNode;
-            }
-            return pathArr.reverse();
-        },
         api(state) {
             return Api;
         }
@@ -34,7 +25,7 @@ export default {
     mutations: {
         updateDicTypes(state, dicTypes) {
             let dicTypeMap = {};
-            state.dicTypes = Vue.$util.generateTree(dicTypes,"parentNode", dicTypeMap);
+            state.dicTypes = Vue.$util.generateTree(dicTypes, "parentNode", dicTypeMap);
 
             state.dicTypeMap = dicTypeMap;
         }
