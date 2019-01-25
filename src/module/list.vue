@@ -17,7 +17,7 @@
                         <el-button size="small" @click.stop>修改</el-button>
                     </router-link>
                     <router-link append :to="scope.row.id+'/page'" class="mgr-10">
-                        <el-button size="small" @click.stop>页面信息</el-button>
+                        <el-button size="small" @click.stop>页面管理</el-button>
                     </router-link>
                     <el-button size="small" @click.stop="deleteClickHandle(scope.row.id)">删除</el-button>
                 </template>
@@ -31,8 +31,8 @@
 
     export default {
         name: "list",
-        created() {
-            console.info(this);
+        activated() {
+            this.$bread.splice(3);
         },
         computed: {
             ...mapGetters("system_module", ["api"]),

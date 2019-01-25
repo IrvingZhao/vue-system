@@ -5,7 +5,9 @@ export default {
     namespaced: true,
     state: {
         moduleMap: {},
-        modules: []
+        modules: [],
+        pageList: [],
+        pageMap: {}
     },
     mutations: {
         updateModules(state, modules) {
@@ -13,6 +15,12 @@ export default {
             state.modules = Vue.$util.generateTree(modules, "parentNode", moduleMap);
 
             state.moduleMap = moduleMap;
+        },
+        updatePages(state, pages) {
+            pages.forEach(item => {
+                state.pageMap[item.id] = item;
+            });
+            state.pageList = pages;
         }
     },
     actions: {
@@ -21,6 +29,14 @@ export default {
                 const {code, msg, data} = body;
                 if ("000000" === code) {
                     context.commit("updateModules", data);
+                }
+            })
+        },
+        updatePages(context, moduleId) {
+            Api.page.list(moduleId).then(({body}) => {
+                const {code, msg, data} = body;
+                if ("000000" === code) {
+                    context.commit("updatePages", data);
                 }
             })
         }
