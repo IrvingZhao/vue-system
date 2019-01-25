@@ -9,8 +9,7 @@
             </template>
         </xlb-toolbar>
         <xlb-tree-table slot="grid" :data="modules">
-            <xlb-tree-table-column label="名称" width="5" property="name"></xlb-tree-table-column>
-            <xlb-tree-table-column label="编码" width="3" property="path"></xlb-tree-table-column>
+            <xlb-tree-table-column label="名称" width="8" property="name"></xlb-tree-table-column>
             <xlb-tree-table-column label="操作" width="2">
                 <template slot-scope="scope">
                     <router-link append :to="scope.row.id" class="mgr-10">

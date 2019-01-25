@@ -30,7 +30,8 @@ const router = [
     {
         name: "module-page-create",
         path: ":moduleId/page/add",
-        component: PageEdit
+        component: PageEdit,
+        props: true
     },
     {
         name: "module-page-edit",

@@ -26,9 +26,9 @@ export default {
         },
         save(moduleId, param) {
             if (param.id) {
-                return Vue.http.put(PAGE_URL, {body: param, params: {moduleId}});
+                return Vue.http.put(PAGE_URL, param, {params: {moduleId}});
             } else {
-                return Vue.http.post(PAGE_URL, {body: param, params: {moduleId}});
+                return Vue.http.post(PAGE_URL, param, {params: {moduleId}});
             }
         },
         getOne(moduleId, id) {

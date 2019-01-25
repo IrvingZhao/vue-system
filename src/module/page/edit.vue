@@ -61,7 +61,8 @@
         },
         methods: {
             updatePage() {
-                this.$bread.splice(4);
+                this.$bread.splice("3");
+                this.$bread.push({name: "页面管理", path: "/system/module/" + this.moduleId + "/page"});
                 if (this.id) {
                     this.loadPage();
                     this.$bread.push({name: "修改", path: "/system/module/" + this.moduleId + "/page/" + this.id});
@@ -90,7 +91,6 @@
                                     message: msg,
                                     type: 'success'
                                 });
-                                this.$store.dispatch("system_module/updatePages");
                                 this.$router.push("/system/module/" + this.moduleId + "/page");
                             }
                         });

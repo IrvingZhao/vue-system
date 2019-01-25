@@ -32,7 +32,7 @@
         props: ["moduleId"],
         activated() {
             this.$bread.splice(3);
-            this.$bread.push({name: "菜单管理", path: "/system/module/" + this.moduleId + "/page"});
+            this.$bread.push({name: "页面管理", path: "/system/module/" + this.moduleId + "/page"});
             if (!this.hasWatch) {
                 this.$store.dispatch("system_module/updatePages", this.moduleId);
             }
