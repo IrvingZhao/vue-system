@@ -3,7 +3,7 @@ import Vue from 'vue';
 const MODULE_URL = "/api/system/module{/id}";
 const PAGE_URL = "/api/system/module/{moduleId}/page{/id}";
 const OPERATOR_URL = "/api/system/module/{moduleId}/page/{pageId}/operator{/id}";
-const MODULE_PAGE_URL = "/api/system/modulePage";
+const MODULE_PAGE_URL = "/api/system/module/withPage";
 
 export default {
     list() {
