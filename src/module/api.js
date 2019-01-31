@@ -1,7 +1,9 @@
 import Vue from 'vue';
 
 const MODULE_URL = "/api/system/module{/id}";
-const PAGE_URL = "/api/module/{moduleId}/page{/id}";
+const PAGE_URL = "/api/system/module/{moduleId}/page{/id}";
+const OPERATOR_URL = "/api/system/module/{moduleId}/page/{pageId}/operator{/id}";
+const MODULE_PAGE_URL = "/api/system/modulePage";
 
 export default {
     list() {
@@ -36,6 +38,29 @@ export default {
         },
         del(moduleId, id) {
             return Vue.http.delete(PAGE_URL, {params: {moduleId}, body: {id}});
+        },
+    },
+    operator: {
+        list(moduleId, pageId) {
+            return Vue.http.get(OPERATOR_URL, {params: {moduleId, pageId}});
+        },
+        save(moduleId, pageId, param) {
+            if (param.id) {
+                return Vue.http.put(OPERATOR_URL, param, {params: {moduleId, pageId}});
+            } else {
+                return Vue.http.post(OPERATOR_URL, param, {params: {moduleId, pageId}});
+            }
+        },
+        getOne(moduleId, pageId, id) {
+            return Vue.http.get(OPERATOR_URL, {params: {moduleId, pageId, id}});
+        },
+        del(moduleId, pageId, id) {
+            return Vue.http.delete(OPERATOR_URL, {params: {moduleId, pageId}, body: {id}});
+        }
+    },
+    modulePage: {
+        list() {
+            return Vue.http.get(MODULE_PAGE_URL);
         }
     }
 }

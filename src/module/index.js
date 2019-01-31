@@ -3,6 +3,8 @@ import List from './list';
 import Edit from './edit';
 import PageList from './page/list';
 import PageEdit from './page/edit';
+import OperatorList from './operator/list';
+import OperatorEdit from './operator/edit';
 
 const router = [
     {
@@ -39,6 +41,24 @@ const router = [
         component: PageEdit,
         props: true
     },
+    {
+        name: "module-page-operator-list",
+        path: ":moduleId/page/:pageId/operator",
+        component: OperatorList,
+        props: true
+    },
+    {
+        name: "module-page-operator-create",
+        path: ":moduleId/page/:pageId/operator/add",
+        component: OperatorEdit,
+        props: true
+    },
+    {
+        name: "module-page-operator-create",
+        path: ":moduleId/page/:pageId/operator/:id",
+        component: OperatorEdit,
+        props: true
+    }
 ];
 
 export default {
