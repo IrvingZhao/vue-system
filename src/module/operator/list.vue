@@ -37,7 +37,10 @@
         activated() {
             this.$bread.splice(3);
             this.$bread.push({name: "页面管理", path: "/system/module/" + this.moduleId + "/page"});
-            this.$bread.push({name: "功能管理", path: "/system/module/" + this.moduleId + "/page/" + this.pageId + "/operator"});
+            this.$bread.push({
+                name: "功能管理",
+                path: "/system/module/" + this.moduleId + "/page/" + this.pageId + "/operator"
+            });
             if (!this.hasWatch) {
                 this.$store.dispatch("system_module/updateOperators", {moduleId: this.moduleId, pageId: this.pageId});
             }
@@ -70,7 +73,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.api.operator.del(this.moduleId, this.pageId, id).then(({body}) => {
+                    this.api.operator.del(this.pageId, id).then(({body}) => {
                         const {code, msg, data} = body;
                         if ("000000" === code) {
                             this.$message({

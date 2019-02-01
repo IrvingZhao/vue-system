@@ -86,7 +86,7 @@
                             name: "修改",
                             path: "/system/module/" + this.moduleId + "/page/" + this.pageId + "/operator/" + this.id
                         });
-                        this.api.operator.getOne(this.moduleId, this.pageId, this.id).then(({body}) => {
+                        this.api.operator.getOne(this.pageId, this.id).then(({body}) => {
                             const {code, msg, data} = body;
                             if ("000000" === code) {
                                 data.refPage = this.$util.getTreePath(this.modulePageTreeMap, data.refPage);
@@ -111,7 +111,7 @@
                         } else if (data.type === "link") {
                             data.refPage = data.refPage[data.refPage.length - 1];
                         }
-                        this.api.operator.save(this.moduleId, this.pageId, data).then(({body}) => {
+                        this.api.operator.save(this.pageId, data).then(({body}) => {
                             const {code, msg} = body;
                             if ("000000" === code) {
                                 this.$message({

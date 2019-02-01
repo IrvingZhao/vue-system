@@ -66,7 +66,7 @@ export default {
             if (context.state.pageList.length === 0) {
                 context.dispatch("updatePages", moduleId)
             }
-            Api.operator.list(moduleId, pageId).then(({body}) => {
+            Api.operator.list(pageId).then(({body}) => {
                 const {code, data} = body;
                 if ("000000" === code) {
                     context.commit("updateOperators", data);

@@ -1,8 +1,8 @@
 import Vue from 'vue';
 
 const MODULE_URL = "/api/system/module{/id}";
-const PAGE_URL = "/api/system/module/{moduleId}/page{/id}";
-const OPERATOR_URL = "/api/system/module/{moduleId}/page/{pageId}/operator{/id}";
+const PAGE_URL = "/api/system/page/{moduleId}{/id}";
+const OPERATOR_URL = "/api/system/operator/{pageId}{/id}";
 const MODULE_PAGE_URL = "/api/system/module/withPage";
 
 export default {
@@ -41,21 +41,21 @@ export default {
         },
     },
     operator: {
-        list(moduleId, pageId) {
-            return Vue.http.get(OPERATOR_URL, {params: {moduleId, pageId}});
+        list(pageId) {
+            return Vue.http.get(OPERATOR_URL, {params: {pageId}});
         },
-        save(moduleId, pageId, param) {
+        save(pageId, param) {
             if (param.id) {
-                return Vue.http.put(OPERATOR_URL, param, {params: {moduleId, pageId}});
+                return Vue.http.put(OPERATOR_URL, param, {params: {pageId}});
             } else {
-                return Vue.http.post(OPERATOR_URL, param, {params: {moduleId, pageId}});
+                return Vue.http.post(OPERATOR_URL, param, {params: {pageId}});
             }
         },
-        getOne(moduleId, pageId, id) {
-            return Vue.http.get(OPERATOR_URL, {params: {moduleId, pageId, id}});
+        getOne(pageId, id) {
+            return Vue.http.get(OPERATOR_URL, {params: {pageId, id}});
         },
-        del(moduleId, pageId, id) {
-            return Vue.http.delete(OPERATOR_URL, {params: {moduleId, pageId}, body: {id}});
+        del(pageId, id) {
+            return Vue.http.delete(OPERATOR_URL, {params: {pageId}, body: {id}});
         }
     },
     modulePage: {
