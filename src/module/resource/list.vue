@@ -78,7 +78,7 @@
             ...mapState("system_module", ["pageMap", "operatorMap", "resourceList"]),
             ...mapGetters("system_module", ["api"]),
             type() {
-                return this.pageId ? "page" : "operator"
+                return this.operatorId ? "operator" : "page"
             },
             sourceId() {
                 return this.operatorId || this.pageId;

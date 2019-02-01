@@ -74,7 +74,7 @@ const router = [
         props: true
     },
     {
-        name: "module-page-resource-create",
+        name: "module-page-resource-edit",
         path: ":moduleId/page/:pageId/resource/:id",
         component: ResourceEdit,
         props: true
@@ -92,7 +92,7 @@ const router = [
         props: true
     },
     {
-        name: "module-page-operator-resource-create",
+        name: "module-page-operator-resource-edit",
         path: ":moduleId/page/:pageId/operator/:operatorId/resource/:id",
         component: ResourceEdit,
         props: true

@@ -31,7 +31,6 @@
             if (!this.hasWatch) {
                 this.updateResource();
             }
-            console.info(this);
         },
         watch: {
             id() {
