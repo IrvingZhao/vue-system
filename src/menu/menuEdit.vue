@@ -3,15 +3,18 @@
         <el-form-item prop="name" label="菜单名称">
             <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item prop="path" label="菜单地址">
-            <el-input v-model="form.path"></el-input>
+        <el-form-item prop="key" label="Key">
+            <el-input v-model="form.key"></el-input>
         </el-form-item>
         <el-form-item prop="parent" label="父菜单">
             <el-cascader v-model="form.parent" :options="menus" filterable clearable change-on-select
                          :props="{label:'name',value:'id'}"></el-cascader>
         </el-form-item>
+        <el-form-item prop="page" label="菜单访问页面">
+            <el-cascader v-model="form.page" :options="modulePageTree" :props="refPageProps" clearable></el-cascader>
+        </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="save">立即创建</el-button>
+            <el-button type="primary" @click="save">保存</el-button>
             <el-button @click="reset">重置</el-button>
         </el-form-item>
     </el-form>
@@ -39,11 +42,11 @@
             this.hasChangeData = false;
         },
         computed: {
+            ...mapState("system_module", ["modulePageTree", "modulePageTreeMap"]),
             ...mapState("system_menu", [
-                "menus"
+                "menus", "menuMap"
             ]),
             ...mapGetters("system_menu", [
-                "menuPath",
                 "api"
             ]),
         },
@@ -51,14 +54,22 @@
             return {
                 form: {
                     name: "",
-                    path: "",
-                    parent: []
+                    key: "",
+                    parent: [],
+                    page: []
                 },
                 hasChangeData: false,
                 ruleForm: {
                     name: [
                         {required: true, message: "请输入菜单名称"}
+                    ],
+                    key: [
+                        {required: true, message: "请输入菜单key"}
                     ]
+                },
+                refPageProps: {
+                    value: "id",
+                    label: "name"
                 }
             }
         },
@@ -78,7 +89,8 @@
                     const {code, msg, data} = body;
                     if ("000000" === code) {
                         if (data && data.id) {
-                            data.parent = this.menuPath(data.parent);
+                            data.parent = this.$util.getTreePath(this.menuMap, data.parent);
+                            data.page = this.$util.getTreePath(this.modulePageTreeMap, data.page);
                             this.form = data;
                         } else {
                             this.$message({
@@ -97,6 +109,11 @@
                     if (valid) {
                         let data = {...this.form};
                         data.parent = data.parent[data.parent.length - 1];
+                        if (data.page.length > 0) {
+                            data.page = data.page[data.page.length - 1];
+                        } else {
+                            data.page = undefined;
+                        }
                         data.id = this.id;
                         this.api.menu.save(data).then(({body}) => {
                             const {code, msg} = body;

@@ -6,6 +6,7 @@
 
 <script>
     import Store from './store';
+    import SystemModuleStore from '../module/store';
 
     export default {
         name: "index",
@@ -16,9 +17,14 @@
                 this.$store.registerModule(["system_menu"], Store);
             }
             this.$store.dispatch("system_menu/updateMenus");
+
+            if (!this.$store.system_module) {
+                this.$store.registerModule(["system_module"], SystemModuleStore);
+            }
+            this.$store.dispatch("system_module/updateAllModulePage")
         },
         destroyed() {
-            this.$store.unregisterModule(["system_menu"]);
+            this.$store.unregisterModule(["system_menu", "system_module"]);
         }
     }
 </script>

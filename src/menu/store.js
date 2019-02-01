@@ -8,15 +8,6 @@ export default {
         menuMap: {}
     },
     getters: {
-        menuPath: (state) => (menuId) => {
-            let pathArr = [menuId];
-            let parent = state.menuMap[menuId];
-            while (parent) {
-                pathArr.push(parent.id);
-                parent = parent.parentNode;
-            }
-            return pathArr.reverse();
-        },
         api(state) {
             return Api;
         }

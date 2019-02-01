@@ -12,9 +12,13 @@
             </template>
         </xlb-toolbar>
         <xlb-tree-table slot="grid" :data="menus">
-            <xlb-tree-table-column label="名称" width="5" property="name"></xlb-tree-table-column>
-            <xlb-tree-table-column label="地址" width="3" property="path"></xlb-tree-table-column>
-            <xlb-tree-table-column label="操作" width="2">
+            <xlb-tree-table-column label="名称" width="3" property="name"></xlb-tree-table-column>
+            <xlb-tree-table-column label="页面" width="4">
+                <template slot-scope="scope">
+                    {{getPagePath(scope.row.page)}}
+                </template>
+            </xlb-tree-table-column>
+            <xlb-tree-table-column label="操作" width="3">
                 <template slot-scope="scope">
                     <router-link append :to="scope.row.id" class="mgr-10">
                         <el-button size="small" @click.stop>修改</el-button>
@@ -30,7 +34,7 @@
 </template>
 
 <script>
-    import {mapState,mapGetters} from "vuex";
+    import {mapState, mapGetters} from "vuex";
 
     export default {
         name: "menu-list",
@@ -41,9 +45,15 @@
             ...mapState("system_menu", [
                 "menus"
             ]),
+            ...mapState("system_module", ["modulePageTreeMap"]),
             ...mapGetters("system_menu", ["api"]),
         },
         methods: {
+            getPagePath(pageId) {
+                return pageId ?
+                    this.$util.getTreePath(this.modulePageTreeMap, pageId,"name").join(">")
+                    : ""
+            },
             deleteClickHandle(id) {
                 this.$confirm("确定删除该菜单？", "提示", {
                     confirmButtonText: '确定',
