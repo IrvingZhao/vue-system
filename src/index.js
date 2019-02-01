@@ -1,23 +1,26 @@
-import menu from './menu';
-import dic from './dictionary';
+import Menu from './menu';
+import Dic from './dictionary';
+import Module from './module';
 import Resource from './resource';
 import page from './BasePage';
 
 let router = [
     {
-        name: "menu",
         path: "menu",
-        component: menu.page,
-        children: menu.router
+        component: Menu.page,
+        children: Menu.router
     },
     {
-        name: "dic",
         path: "dic",
-        component: dic.page,
-        children: dic.router
+        component: Dic.page,
+        children: Dic.router
     },
     {
-        name: "resource",
+        path: "module",
+        component: Module.page,
+        children: Module.router
+    },
+    {
         path: "resource",
         component: Resource.page,
         children: Resource.router
