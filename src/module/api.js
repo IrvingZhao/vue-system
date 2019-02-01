@@ -3,6 +3,7 @@ import Vue from 'vue';
 const MODULE_URL = "/api/system/module{/id}";
 const PAGE_URL = "/api/system/page/{moduleId}{/id}";
 const OPERATOR_URL = "/api/system/operator/{pageId}{/id}";
+const RESOURCE_URL = "/api/system/resource/{type}/{sourceId}{/id}";
 const MODULE_PAGE_URL = "/api/system/module/withPage";
 
 export default {
@@ -56,6 +57,24 @@ export default {
         },
         del(pageId, id) {
             return Vue.http.delete(OPERATOR_URL, {params: {pageId}, body: {id}});
+        }
+    },
+    resource: {
+        list(type, sourceId) {
+            return Vue.http.get(RESOURCE_URL, {params: {type, sourceId}});
+        },
+        save(type, sourceId, param) {
+            if (param.id) {
+                return Vue.http.put(RESOURCE_URL, param, {params: {type, sourceId}});
+            } else {
+                return Vue.http.post(RESOURCE_URL, param, {params: {type, sourceId}});
+            }
+        },
+        getOne(type, sourceId, id) {
+            return Vue.http.get(RESOURCE_URL, {params: {type, sourceId, id}});
+        },
+        del(type, sourceId, id) {
+            return Vue.http.delete(RESOURCE_URL, {params: {type, sourceId}, body: {id}});
         }
     },
     modulePage: {

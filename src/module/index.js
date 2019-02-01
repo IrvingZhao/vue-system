@@ -1,10 +1,12 @@
-import page from './page';
-import List from './list';
-import Edit from './edit';
-import PageList from './page/list';
-import PageEdit from './page/edit';
-import OperatorList from './operator/list';
-import OperatorEdit from './operator/edit';
+const page = () => import(/* webpackChunkName:"system/module/index" */ './page');
+const List = () => import(/* webpackChunkName:"system/module/list" */ './list');
+const Edit = () => import(/* webpackChunkName:"system/module/edit" */ './edit');
+const PageList = () => import(/* webpackChunkName:"system/module/page/list" */ './page/list');
+const PageEdit = () => import(/* webpackChunkName:"system/module/page/edit" */ './page/edit');
+const OperatorList = () => import(/* webpackChunkName:"system/module/operator/list" */ './operator/list');
+const OperatorEdit = () => import(/* webpackChunkName:"system/module/operator/edit" */ './operator/edit');
+const ResourceList = () => import(/* webpackChunkName:"system/module/resource/list" */ './resource/list');
+const ResourceEdit = () => import(/* webpackChunkName:"system/module/resource/edit" */ './resource/edit');
 
 const router = [
     {
@@ -54,11 +56,47 @@ const router = [
         props: true
     },
     {
-        name: "module-page-operator-create",
+        name: "module-page-operator-edit",
         path: ":moduleId/page/:pageId/operator/:id",
         component: OperatorEdit,
         props: true
-    }
+    },
+    {
+        name: "module-page-resource-list",
+        path: ":moduleId/page/:pageId/resource",
+        component: ResourceList,
+        props: true
+    },
+    {
+        name: "module-page-resource-create",
+        path: ":moduleId/page/:pageId/resource/add",
+        component: ResourceEdit,
+        props: true
+    },
+    {
+        name: "module-page-resource-create",
+        path: ":moduleId/page/:pageId/resource/:id",
+        component: ResourceEdit,
+        props: true
+    },
+    {
+        name: "module-page-operator-resource-list",
+        path: ":moduleId/page/:pageId/operator/:operatorId/resource",
+        component: ResourceList,
+        props: true
+    },
+    {
+        name: "module-page-operator-resource-create",
+        path: ":moduleId/page/:pageId/operator/:operatorId/resource/add",
+        component: ResourceEdit,
+        props: true
+    },
+    {
+        name: "module-page-operator-resource-create",
+        path: ":moduleId/page/:pageId/operator/:operatorId/resource/:id",
+        component: ResourceEdit,
+        props: true
+    },
 ];
 
 export default {

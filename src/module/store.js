@@ -9,8 +9,10 @@ export default {
         pageList: [],
         pageMap: {},
         operators: [],
+        operatorMap: {},
         modulePageTree: [],
         modulePageTreeMap: {},
+        resourceList: []
     },
     mutations: {
         updateModules(state, modules) {
@@ -26,6 +28,9 @@ export default {
             state.pageList = pages;
         },
         updateOperators(state, operators) {
+            operators.forEach((item) => {
+                Vue.set(state.operatorMap, item.id, item);
+            });
             state.operators = operators;
         },
         updateAllModulePage(state, modulePages) {
@@ -40,6 +45,9 @@ export default {
                 }
             }
             state.modulePageTreeMap = moduleTreeMap;
+        },
+        updateResource(state, resources) {
+            state.resourceList = resources;
         }
     },
     actions: {
@@ -78,6 +86,14 @@ export default {
                 const {code, data} = body;
                 if ("000000" === code) {
                     context.commit("updateAllModulePage", data);
+                }
+            })
+        },
+        updateResource(context, {type, sourceId}) {
+            Api.resource.list(type, sourceId).then(({body}) => {
+                const {code, data} = body;
+                if ("000000" === code) {
+                    context.commit("updateResource", data);
                 }
             })
         }

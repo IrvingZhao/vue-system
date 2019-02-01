@@ -16,10 +16,13 @@
                     {{operatorType[scope.row.type]||scope.row.type}}
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="200">
+            <el-table-column label="操作" width="250">
                 <template slot-scope="scope">
                     <router-link append :to="scope.row.id" class="mgr-10">
                         <el-button size="small">修改</el-button>
+                    </router-link>
+                    <router-link append :to="scope.row.id+'/resource'" class="mgr-10">
+                        <el-button size="small">接口管理</el-button>
                     </router-link>
                     <el-button size="small" @click="deleteDicItem(scope.row.id)">删除</el-button>
                 </template>
