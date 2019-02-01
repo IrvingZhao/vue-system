@@ -21,7 +21,7 @@
                     <router-link append :to="scope.row.id" class="mgr-10">
                         <el-button size="small">修改</el-button>
                     </router-link>
-                    <router-link append :to="scope.row.id+'/resource'" class="mgr-10">
+                    <router-link append :to="scope.row.id+'/resource'" class="mgr-10" v-if="scope.row.type === 'event'">
                         <el-button size="small">接口管理</el-button>
                     </router-link>
                     <el-button size="small" @click="deleteDicItem(scope.row.id)">删除</el-button>
