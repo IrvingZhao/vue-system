@@ -66,16 +66,25 @@
         },
         methods: {
             updateDicType() {
-                this.$bread.splice(3);
-                if (this.id) {
-                    this.loadDicType();
-                    this.$bread.push({name: "修改", path: "/system/dic/" + this.id});
-                } else {
-                    this.reset();
-                    this.$bread.push({name: "新增", path: "/system/dic/add"});
-                }
+                new Promise(resolve => {
+                    if (this.dicTypes.length === 0) {
+                        this.$store.dispatch("system_dic/updateDicTypes").then(() => resolve());
+                    } else {
+                        resolve();
+                    }
+                }).then(() => {
+                    this.$bread.splice(3);
+                    if (this.id) {
+                        this.loadDicType();
+                        this.$bread.push({name: "修改", path: "/system/dic/" + this.id});
+                    } else {
+                        this.reset();
+                        this.$bread.push({name: "新增", path: "/system/dic/add"});
+                    }
+                });
             },
             loadDicType() {
+
                 this.api.dicType.getOne(this.id).then(({body}) => {
                     const {code, msg, data} = body;
                     if ("000000" === code) {
