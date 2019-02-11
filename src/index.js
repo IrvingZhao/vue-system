@@ -3,6 +3,7 @@ import Dic from './dictionary';
 import Module from './module';
 import Resource from './resource';
 import Depart from './depart';
+import Role from './role';
 import page from './BasePage';
 
 let router = [
@@ -30,6 +31,11 @@ let router = [
         path: "depart",
         component: Depart.page,
         children: Depart.router
+    },
+    {
+        path: "role",
+        component: Role.page,
+        children: Role.router
     }
 ];
 
