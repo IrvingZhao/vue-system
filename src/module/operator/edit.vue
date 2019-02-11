@@ -28,7 +28,6 @@
     export default {
         name: "edit",
         activated() {
-            console.info(this);
             if (!this.hasWatch) {
                 this.updatePage();
             }

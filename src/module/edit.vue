@@ -58,7 +58,9 @@
         methods: {
             updateModule() {
                 this.$bread.splice(3);
+                this.$store.commit("system_module/clearDisable");
                 if (this.id) {
+                    this.$store.commit("system_module/setDisabled", this.id);
                     this.loadModule();
                     this.$bread.push({name: "修改", path: "/system/module/" + this.id});
                 } else {
@@ -73,7 +75,6 @@
                         if (data && data.id) {
                             data.parent = this.$util.getTreePath(this.moduleMap, data.parent);
                             this.form = data;
-                            console.info(this.form);
                         } else {
                             this.$message({
                                 message: "未找到id为[" + this.id + "]的模块",

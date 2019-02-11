@@ -6,6 +6,7 @@ export default {
     state: {
         moduleMap: {},
         modules: [],
+        disabledId: "",
         pageList: [],
         pageMap: {},
         operators: [],
@@ -18,8 +19,25 @@ export default {
         updateModules(state, modules) {
             let moduleMap = {};
             state.modules = Vue.$util.generateTree(modules, "parentNode", moduleMap);
-
             state.moduleMap = moduleMap;
+
+            if (state.disabledId && moduleMap[state.disabledId]) {
+                moduleMap[state.disabledId].disabled = true;
+            }
+        },
+        clearDisable(state) {
+            state.disabledId = "";
+            for (let item in state.moduleMap) {
+                if (state.moduleMap.hasOwnProperty(item)) {
+                    state.moduleMap[item].disabled = false;
+                }
+            }
+        },
+        setDisabled(state, disableId) {
+            state.disabledId = disableId;
+            if (state.moduleMap[disableId]) {
+                state.moduleMap[disableId].disabled = true;
+            }
         },
         updatePages(state, pages) {
             pages.forEach(item => {
