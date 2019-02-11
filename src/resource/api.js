@@ -3,8 +3,8 @@ import Vue from 'vue';
 const RESOURCE_URL = "/api/system/resource{/id}";
 
 export default {
-    list() {
-        return Vue.http.get(RESOURCE_URL);
+    list(searchParam) {
+        return Vue.http.get(RESOURCE_URL, {params: searchParam});
     },
     save(param) {
         if (param.id) {
