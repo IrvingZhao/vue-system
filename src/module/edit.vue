@@ -3,8 +3,8 @@
         <el-form-item prop="name" label="名称">
             <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item prop="desc" label="描述">
-            <el-input type="textarea" :rows="2" v-model="form.desc"></el-input>
+        <el-form-item prop="remark" label="描述">
+            <el-input type="textarea" :rows="2" v-model="form.remark"></el-input>
         </el-form-item>
         <el-form-item prop="parent" label="父模块">
             <el-cascader v-model="form.parent" :options="modules" filterable clearable change-on-select
@@ -47,7 +47,7 @@
                 hasWatch: false,
                 form: {
                     name: "",
-                    desc: "",
+                    remark: "",
                     parent: []
                 },
                 ruleForm: {

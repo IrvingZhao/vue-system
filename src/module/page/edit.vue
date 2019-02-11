@@ -9,8 +9,8 @@
         <el-form-item prop="path" label="页面地址">
             <el-input v-model="form.path"></el-input>
         </el-form-item>
-        <el-form-item prop="desc" label="描述">
-            <el-input type="textarea" :rows="2" v-model="form.desc"></el-input>
+        <el-form-item prop="remark" label="描述">
+            <el-input type="textarea" :rows="2" v-model="form.remark"></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="save">保存</el-button>
@@ -50,7 +50,7 @@
                     name: "",
                     key: "",
                     path: "",
-                    desc: ""
+                    remark: ""
                 },
                 ruleForm: {
                     name: {required: true, message: "页面名称不能为空"},

@@ -6,8 +6,8 @@
         <el-form-item prop="code" label="编码">
             <el-input v-model="form.code"></el-input>
         </el-form-item>
-        <el-form-item prop="desc" label="描述">
-            <el-input type="textarea" :rows="2" v-model="form.desc"></el-input>
+        <el-form-item prop="remark" label="描述">
+            <el-input type="textarea" :rows="2" v-model="form.remark"></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="save">保存</el-button>
@@ -44,7 +44,7 @@
                 form: {
                     name: "",
                     code: "",
-                    desc: ""
+                    remark: ""
                 },
                 ruleForm: {
                     name: [{required: true, message: "请输入字典项名称"}],

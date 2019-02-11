@@ -8,8 +8,8 @@
                 <template v-if="codePrepend" slot="prepend">{{codePrepend}}</template>
             </el-input>
         </el-form-item>
-        <el-form-item prop="desc" label="描述">
-            <el-input type="textarea" :rows="2" v-model="form.desc"></el-input>
+        <el-form-item prop="remark" label="描述">
+            <el-input type="textarea" :rows="2" v-model="form.remark"></el-input>
         </el-form-item>
         <el-form-item prop="parent" label="父字典项">
             <el-cascader v-model="form.parent" :options="dicTypes" filterable clearable change-on-select
@@ -54,7 +54,7 @@
                 form: {
                     name: "",
                     code: "",
-                    desc: "",
+                    remark: "",
                     parent: []
                 },
                 ruleForm: {
