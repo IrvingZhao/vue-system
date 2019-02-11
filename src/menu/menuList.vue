@@ -23,9 +23,6 @@
                     <router-link append :to="scope.row.id" class="mgr-10">
                         <el-button size="small" @click.stop>修改</el-button>
                     </router-link>
-                    <router-link append :to="scope.row.id+'/operator'" class="mgr-10">
-                        <el-button size="small" @click.stop>功能配置</el-button>
-                    </router-link>
                     <el-button size="small" @click.stop="deleteClickHandle(scope.row.id)">删除</el-button>
                 </template>
             </xlb-tree-table-column>
@@ -45,7 +42,7 @@
             ...mapState("system_menu", [
                 "menus"
             ]),
-            ...mapState("system_module", ["modulePageTreeMap"]),
+            ...mapState("system_menu_module", ["modulePageTreeMap"]),
             ...mapGetters("system_menu", ["api"]),
         },
         methods: {

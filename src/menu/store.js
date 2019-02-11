@@ -5,7 +5,8 @@ export default {
     namespaced: true,
     state: {
         menus: [],
-        menuMap: {}
+        menuMap: {},
+        disabledId:""
     },
     getters: {
         api(state) {
@@ -26,9 +27,25 @@ export default {
         updateMenus(state, menus) {
             let menuMap = {};
             state.menus = Vue.$util.generateTree(menus, "parentNode", menuMap);
-
             state.menuMap = menuMap;
 
+            if (state.disabledId && menuMap[state.disabledId]) {
+                menuMap[state.disabledId].disabled = true;
+            }
+        },
+        clearDisable(state) {
+            state.disabledId = "";
+            for (let item in state.menuMap) {
+                if (state.menuMap.hasOwnProperty(item)) {
+                    state.menuMap[item].disabled = false;
+                }
+            }
+        },
+        setDisabled(state, disableId) {
+            state.disabledId = disableId;
+            if (state.menuMap[disableId]) {
+                state.menuMap[disableId].disabled = true;
+            }
         }
     }
 }

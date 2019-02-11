@@ -18,13 +18,13 @@
             }
             this.$store.dispatch("system_menu/updateMenus");
 
-            if (!this.$store.system_module) {
-                this.$store.registerModule(["system_module"], SystemModuleStore);
+            if (!this.$store.system_menu_module) {
+                this.$store.registerModule(["system_menu_module"], SystemModuleStore);
             }
-            this.$store.dispatch("system_module/updateAllModulePage")
+            this.$store.dispatch("system_menu_module/updateAllModulePage")
         },
         destroyed() {
-            this.$store.unregisterModule(["system_menu", "system_module"]);
+            this.$store.unregisterModule(["system_menu", "system_menu_module"]);
         }
     }
 </script>

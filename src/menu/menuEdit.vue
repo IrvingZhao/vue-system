@@ -42,7 +42,7 @@
             this.hasChangeData = false;
         },
         computed: {
-            ...mapState("system_module", ["modulePageTree", "modulePageTreeMap"]),
+            ...mapState("system_menu_module", ["modulePageTree", "modulePageTreeMap"]),
             ...mapState("system_menu", [
                 "menus", "menuMap"
             ]),
@@ -76,7 +76,9 @@
         methods: {
             updateData() {
                 this.$bread.splice(3);
+                this.$store.commit("system_menu/clearDisable");
                 if (this.id) {
+                    this.$store.commit("system_menu/setDisabled", this.id);
                     this.loadItemMenu();
                     this.$bread.push({name: "修改", path: "/system/menu/" + this.id});
                 } else {
