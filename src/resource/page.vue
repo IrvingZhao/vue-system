@@ -11,7 +11,7 @@
         name: "page",
         created() {
             this.$bread.splice(2);
-            this.$bread.push({name: "接口管理", path: "/system/resource"});
+            this.$bread.push({name: "公共接口管理", path: "/system/resource"});
             if (!this.$store.system_resource) {
                 this.$store.registerModule(["system_resource"], Store);
             }

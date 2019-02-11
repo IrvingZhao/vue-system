@@ -28,7 +28,6 @@
     export default {
         name: "list",
         created() {
-            console.info(this);
         },
         computed: {
             ...mapState("system_depart", ["departList"]),

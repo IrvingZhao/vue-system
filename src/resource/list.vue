@@ -2,7 +2,7 @@
     <xlb-base-page>
         <xlb-toolbar slot="toolBar">
             <template slot="pageTitle">
-                接口管理
+                公共接口管理
             </template>
             <template>
                 <router-link append to="add">
@@ -35,6 +35,9 @@
         computed: {
             ...mapState("system_resource", ["resources"]),
             ...mapGetters("system_resource", ["api"]),
+        },
+        activated(){
+            this.$bread.splice(3);
         },
         methods: {
             deleteDicItem(id) {
