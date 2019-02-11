@@ -2,6 +2,7 @@ import Menu from './menu';
 import Dic from './dictionary';
 import Module from './module';
 import Resource from './resource';
+import Depart from './depart';
 import page from './BasePage';
 
 let router = [
@@ -24,6 +25,11 @@ let router = [
         path: "resource",
         component: Resource.page,
         children: Resource.router
+    },
+    {
+        path: "depart",
+        component: Depart.page,
+        children: Depart.router
     }
 ];
 
