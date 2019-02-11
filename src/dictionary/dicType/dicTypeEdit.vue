@@ -66,22 +66,16 @@
         },
         methods: {
             updateDicType() {
-                new Promise(resolve => {
-                    if (this.dicTypes.length === 0) {
-                        this.$store.dispatch("system_dic/updateDicTypes").then(() => resolve());
-                    } else {
-                        resolve();
-                    }
-                }).then(() => {
-                    this.$bread.splice(3);
-                    if (this.id) {
-                        this.loadDicType();
-                        this.$bread.push({name: "修改", path: "/system/dic/" + this.id});
-                    } else {
-                        this.reset();
-                        this.$bread.push({name: "新增", path: "/system/dic/add"});
-                    }
-                });
+                this.$bread.splice(3);
+                this.$store.commit("system_dic/clearDisable");
+                if (this.id) {
+                    this.$store.commit("system_dic/setDisabled", this.id);
+                    this.loadDicType();
+                    this.$bread.push({name: "修改", path: "/system/dic/" + this.id});
+                } else {
+                    this.reset();
+                    this.$bread.push({name: "新增", path: "/system/dic/add"});
+                }
             },
             loadDicType() {
 
