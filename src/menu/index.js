@@ -6,18 +6,27 @@ const router = [
     {
         name: "menu-list",
         path: "",
-        component: MenuList
+        component: MenuList,
+        meta: {
+            key: "system_menu_list"
+        }
     },
     {
         name: "menu-add",
         path: "add",
-        component: MenuEdit
+        component: MenuEdit,
+        meta: {
+            key: "system_menu_add"
+        }
     },
     {
         name: "menu-update",
         path: ":id",
         component: MenuEdit,
-        props: true
+        props: true,
+        meta: {
+            key: "system_menu_edit"
+        }
     },
 ];
 export default {

@@ -8,36 +8,54 @@ const router = [
     {
         name: "dicTypeList",
         path: "",
-        component: DicTypeList
+        component: DicTypeList,
+        meta: {
+            key: "system_dicType_list"
+        }
     },
     {
         name: "dicTypeAdd",
         path: "add",
-        component: DicTypeEdit
+        component: DicTypeEdit,
+        meta: {
+            key: "system_dicType_add"
+        }
     },
     {
         name: "dicTypeEdit",
         path: ":id",
         component: DicTypeEdit,
-        props: true
+        props: true,
+        meta: {
+            key: "system_dicType_edit"
+        }
     },
     {
         name: "dicItemList",
         path: ":typeId/item",
         component: DicItemList,
-        props: true
+        props: true,
+        meta: {
+            key: "system_dicItem_list"
+        }
     },
     {
         name: "dicItemAdd",
         path: ":typeId/item/add",
         component: DicItemEdit,
-        props: true
+        props: true,
+        meta: {
+            key: "system_dicItem_add"
+        }
     },
     {
         name: "dicItemEdit",
         path: ":typeId/item/:id",
         component: DicItemEdit,
-        props: true
+        props: true,
+        meta: {
+            key: "system_dicItem_edit"
+        }
     }
 ];
 

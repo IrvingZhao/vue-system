@@ -6,18 +6,27 @@ const router = [
     {
         name: "resource-list",
         path: "",
-        component: ResourceList
+        component: ResourceList,
+        meta: {
+            key: "system_resource_list"
+        }
     },
     {
         name: "resource-create",
         path: "add",
-        component: ResourceEdit
+        component: ResourceEdit,
+        meta: {
+            key: "system_resource_add"
+        }
     },
     {
         name: "resource-edit",
         path: ":id",
         component: ResourceEdit,
-        props: true
+        props: true,
+        meta: {
+            key: "system_resource_edit"
+        }
     },
 ];
 

@@ -24,7 +24,8 @@
             this.$store.dispatch("system_menu_module/updateAllModulePage")
         },
         destroyed() {
-            this.$store.unregisterModule(["system_menu", "system_menu_module"]);
+            this.$store.unregisterModule("system_menu");
+            this.$store.unregisterModule("system_menu_module");
         }
     }
 </script>

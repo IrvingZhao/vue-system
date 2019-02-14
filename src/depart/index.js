@@ -6,18 +6,27 @@ const router = [
     {
         name: "depart-list",
         path: "",
-        component: List
+        component: List,
+        meta: {
+            key: "system_depart_list"
+        }
     },
     {
         name: "depart-create",
         path: "add",
         component: Edit,
+        meta: {
+            key: "system_depart_add"
+        }
     },
     {
         name: "depart-edit",
         path: ":id",
         component: Edit,
-        props: true
+        props: true,
+        meta: {
+            key: "system_depart_edit"
+        }
     }
 ];
 
