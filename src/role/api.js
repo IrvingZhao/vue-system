@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 const ROLE_URL = "/api/system/role{/id}";
-
+const AUTH_URL = "/api/system/auth{/roleId}";
 export default {
     list(searchParam) {
         return Vue.http.get(ROLE_URL, {params: searchParam});
@@ -19,4 +19,15 @@ export default {
     getOne(id) {
         return Vue.http.get(ROLE_URL, {params: {id}});
     },
+    auth: {
+        getAllAuthObject() {
+            return Vue.http.get(AUTH_URL);
+        },
+        getRoleAuthObject(roleId) {
+            return Vue.http.get(AUTH_URL, {params: {roleId}});
+        },
+        saveRoleAuthObject(roleId, authObjects) {
+            return Vue.http.post(AUTH_URL, authObjects, {params: {roleId}});
+        }
+    }
 }
