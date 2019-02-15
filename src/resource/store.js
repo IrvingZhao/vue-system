@@ -1,18 +1,18 @@
 import Api from './api'
-import {pageStates, pageMutations} from "../base/BaseStore";
+import {Store} from 'xlb-platform'
 
 export default {
     namespaced: true,
     state: {
         resources: [],
-        ...pageStates
+        ...Store.pageStates
     },
     mutations: {
         updateResource(state, resources) {
             state.pageInfo.total = resources.total;
             state.resources = resources.list;
         },
-        ...pageMutations
+        ...Store.pageMutations
     },
     actions: {
         updateResource(context) {

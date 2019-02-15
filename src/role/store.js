@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Api from './api';
-import {pageStates, pageMutations} from "../base/BaseStore";
+import {Store} from 'xlb-platform'
 
 export default {
     namespaced: true,
     state: {
-        ...pageStates,
+        ...Store.pageStates,
+        // ...pageStates,
         roles: [],
         allAuthMenuTree: [],
         pageMap: {},
@@ -13,7 +14,8 @@ export default {
         allOperatorMap: {}
     },
     mutations: {
-        ...pageMutations,
+        ...Store.pageMutations,
+        // ...pageMutations,
         updateRoles(state, roles) {
             state.pageInfo.total = roles.total;
             state.roles = roles.list;
