@@ -4,7 +4,7 @@ const MenuEdit = () => import(/* webpackChunkName: 'system/menu/edit' */ "./menu
 
 const router = [
     {
-        name: "menu-list",
+        name: "system-menu-list",
         path: "",
         component: MenuList,
         meta: {
@@ -12,7 +12,7 @@ const router = [
         }
     },
     {
-        name: "menu-add",
+        name: "system-menu-add",
         path: "add",
         component: MenuEdit,
         meta: {
@@ -20,7 +20,7 @@ const router = [
         }
     },
     {
-        name: "menu-update",
+        name: "system-menu-update",
         path: ":id",
         component: MenuEdit,
         props: true,

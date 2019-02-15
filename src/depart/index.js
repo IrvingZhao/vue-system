@@ -4,7 +4,7 @@ import Edit from './edit';
 
 const router = [
     {
-        name: "depart-list",
+        name: "system-depart-list",
         path: "",
         component: List,
         meta: {
@@ -12,7 +12,7 @@ const router = [
         }
     },
     {
-        name: "depart-create",
+        name: "system-depart-add",
         path: "add",
         component: Edit,
         meta: {
@@ -20,7 +20,7 @@ const router = [
         }
     },
     {
-        name: "depart-edit",
+        name: "system-depart-edit",
         path: ":id",
         component: Edit,
         props: true,

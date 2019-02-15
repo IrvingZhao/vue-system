@@ -10,7 +10,7 @@ const ResourceEdit = () => import(/* webpackChunkName:"system/module/resource/ed
 
 const router = [
     {
-        name: "module-list",
+        name: "system-module-list",
         path: "",
         component: List,
         meta: {
@@ -18,7 +18,7 @@ const router = [
         }
     },
     {
-        name: "module-create",
+        name: "system-module-add",
         path: "add",
         component: Edit,
         meta: {
@@ -26,7 +26,7 @@ const router = [
         }
     },
     {
-        name: "module-edit",
+        name: "system-module-edit",
         path: ":id",
         props: true,
         component: Edit,
@@ -35,7 +35,7 @@ const router = [
         }
     },
     {
-        name: "module-page-list",
+        name: "system-module-page-list",
         path: ":moduleId/page",
         component: PageList,
         props: true,
@@ -44,7 +44,7 @@ const router = [
         }
     },
     {
-        name: "module-page-create",
+        name: "system-module-page-add",
         path: ":moduleId/page/add",
         component: PageEdit,
         props: true,
@@ -53,7 +53,7 @@ const router = [
         }
     },
     {
-        name: "module-page-edit",
+        name: "system-module-page-edit",
         path: ":moduleId/page/:id",
         component: PageEdit,
         props: true,
@@ -62,7 +62,7 @@ const router = [
         }
     },
     {
-        name: "module-page-operator-list",
+        name: "system-module-page-operator-list",
         path: ":moduleId/page/:pageId/operator",
         component: OperatorList,
         props: true,
@@ -71,7 +71,7 @@ const router = [
         }
     },
     {
-        name: "module-page-operator-create",
+        name: "system-module-page-operator-add",
         path: ":moduleId/page/:pageId/operator/add",
         component: OperatorEdit,
         props: true,
@@ -80,7 +80,7 @@ const router = [
         }
     },
     {
-        name: "module-page-operator-edit",
+        name: "system-module-page-operator-edit",
         path: ":moduleId/page/:pageId/operator/:id",
         component: OperatorEdit,
         props: true,
@@ -89,7 +89,7 @@ const router = [
         }
     },
     {
-        name: "module-page-resource-list",
+        name: "system-module-page-resource-list",
         path: ":moduleId/page/:pageId/resource",
         component: ResourceList,
         props: true,
@@ -98,7 +98,7 @@ const router = [
         }
     },
     {
-        name: "module-page-resource-create",
+        name: "system-module-page-resource-add",
         path: ":moduleId/page/:pageId/resource/add",
         component: ResourceEdit,
         props: true,
@@ -107,7 +107,7 @@ const router = [
         }
     },
     {
-        name: "module-page-resource-edit",
+        name: "system-module-page-resource-edit",
         path: ":moduleId/page/:pageId/resource/:id",
         component: ResourceEdit,
         props: true,
@@ -116,7 +116,7 @@ const router = [
         }
     },
     {
-        name: "module-page-operator-resource-list",
+        name: "system-module-page-operator-resource-list",
         path: ":moduleId/page/:pageId/operator/:operatorId/resource",
         component: ResourceList,
         props: true,
@@ -125,7 +125,7 @@ const router = [
         }
     },
     {
-        name: "module-page-operator-resource-create",
+        name: "system-module-page-operator-resource-add",
         path: ":moduleId/page/:pageId/operator/:operatorId/resource/add",
         component: ResourceEdit,
         props: true,
@@ -134,7 +134,7 @@ const router = [
         }
     },
     {
-        name: "module-page-operator-resource-edit",
+        name: "system-module-page-operator-resource-edit",
         path: ":moduleId/page/:pageId/operator/:operatorId/resource/:id",
         component: ResourceEdit,
         props: true,

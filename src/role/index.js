@@ -5,7 +5,7 @@ const AuthEdit = () => import(/* webpackChunkName:'system/role/auth/edit' */ "./
 
 const router = [
     {
-        name: "role-list",
+        name: "system-role-list",
         path: "",
         component: List,
         meta: {
@@ -13,7 +13,7 @@ const router = [
         }
     },
     {
-        name: "role-create",
+        name: "system-role-add",
         path: "add",
         component: Edit,
         meta: {
@@ -21,7 +21,7 @@ const router = [
         }
     },
     {
-        name: "role-edit",
+        name: "system-role-edit",
         path: ":id",
         component: Edit,
         props: true,
@@ -30,7 +30,7 @@ const router = [
         }
     },
     {
-        name: "role-auth-edit",
+        name: "system-role-auth-edit",
         path: ":id/auth",
         component: AuthEdit,
         props: true,

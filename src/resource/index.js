@@ -4,7 +4,7 @@ const ResourceEdit = () => import(/* webpackChunkName:"system/resource/edit" */ 
 
 const router = [
     {
-        name: "resource-list",
+        name: "system-resource-list",
         path: "",
         component: ResourceList,
         meta: {
@@ -12,7 +12,7 @@ const router = [
         }
     },
     {
-        name: "resource-create",
+        name: "system-resource-add",
         path: "add",
         component: ResourceEdit,
         meta: {
@@ -20,7 +20,7 @@ const router = [
         }
     },
     {
-        name: "resource-edit",
+        name: "system-resource-edit",
         path: ":id",
         component: ResourceEdit,
         props: true,

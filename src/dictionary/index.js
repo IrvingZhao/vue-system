@@ -6,7 +6,7 @@ const DicItemEdit = () => import(/* webpackChunkName: 'system/dic/item/edit'*/ "
 
 const router = [
     {
-        name: "dicTypeList",
+        name: "system-dicType-list",
         path: "",
         component: DicTypeList,
         meta: {
@@ -14,7 +14,7 @@ const router = [
         }
     },
     {
-        name: "dicTypeAdd",
+        name: "system-dicType-add",
         path: "add",
         component: DicTypeEdit,
         meta: {
@@ -22,7 +22,7 @@ const router = [
         }
     },
     {
-        name: "dicTypeEdit",
+        name: "system-dicType-edit",
         path: ":id",
         component: DicTypeEdit,
         props: true,
@@ -31,7 +31,7 @@ const router = [
         }
     },
     {
-        name: "dicItemList",
+        name: "system-dicItem-list",
         path: ":typeId/item",
         component: DicItemList,
         props: true,
@@ -40,7 +40,7 @@ const router = [
         }
     },
     {
-        name: "dicItemAdd",
+        name: "system-dicItem-add",
         path: ":typeId/item/add",
         component: DicItemEdit,
         props: true,
@@ -49,7 +49,7 @@ const router = [
         }
     },
     {
-        name: "dicItemEdit",
+        name: "system-dicItem-edit",
         path: ":typeId/item/:id",
         component: DicItemEdit,
         props: true,
