@@ -4,6 +4,7 @@ import Module from './module';
 import Resource from './resource';
 import Depart from './depart';
 import Role from './role';
+import Property from './properties'
 import page from './BasePage';
 
 let router = [
@@ -36,6 +37,11 @@ let router = [
         path: "role",
         component: Role.page,
         children: Role.router
+    },
+    {
+        path: "property",
+        component: Property.page,
+        children: Property.router
     }
 ];
 
