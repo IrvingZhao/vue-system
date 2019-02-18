@@ -18,26 +18,26 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import {EditPage} from 'xlb-platform';
 
     export default {
         name: "dic-item-edit",
         props: ["typeId", "id"],
-        activated() {
-            if (!this.hasWatch) {
-                this.updateDicItem();
-            }
-        },
-        deactivated() {
-            this.hasWatch = false;
-        },
-        watch: {
-            id() {
-                this.hasWatch = true;
-                this.updateDicItem();
-            }
-        },
+        mixins: [EditPage],
         computed: {
-            ...mapGetters("system_dic", ["api"])
+            ...mapGetters("system_dic", ["api"]),
+            addBread() {
+                return [
+                    {name: "字典项管理", path: "/system/dic/" + this.typeId + "/item"},
+                    {name: "新增", path: "/system/dic/" + this.typeId + "/item/add"}
+                ];
+            },
+            editBread() {
+                return [
+                    {name: "字典项管理", path: "/system/dic/" + this.typeId + "/item"},
+                    {name: "修改", path: "/system/dic/" + this.typeId + "/item/" + this.id}
+                ];
+            }
         },
         data() {
             return {
@@ -50,22 +50,10 @@
                     name: [{required: true, message: "请输入字典项名称"}],
                     code: [{required: true, message: "请输入字典项编码"}]
                 },
-                hasWatch: false
             }
         },
         methods: {
-            updateDicItem() {
-                this.$bread.splice(3);
-                this.$bread.push({name: "字典项管理", path: "/system/dic/" + this.typeId + "/item"});
-                if (this.id) {
-                    this.loadDicItem();
-                    this.$bread.push({name: "修改", path: "/system/dic/" + this.typeId + "/item/" + this.id});
-                } else {
-                    this.reset();
-                    this.$bread.push({name: "新增", path: "/system/dic/" + this.typeId + "/item/add"});
-                }
-            },
-            loadDicItem() {
+            loadData() {
                 this.api.dicItem.getOne(this.typeId, this.id).then(({body}) => {
                     const {code, msg, data} = body;
                     if ("000000" === code) {

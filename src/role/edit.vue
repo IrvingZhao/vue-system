@@ -18,27 +18,20 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import {EditPage} from 'xlb-platform';
 
     export default {
         name: "edit",
         props: ["id"],
-        activated() {
-            if (!this.hasWatch) {
-                this.updateRole();
-            }
-        },
-        watch: {
-            id() {
-                this.hasWatch = true;
-                this.updateRole();
-            }
-        },
-        deactivated() {
-            this.reset();
-            this.hasWatch = false;
-        },
+        mixins: [EditPage],
         computed: {
             ...mapGetters("system_role", ["api"]),
+            editBread() {
+                return {name: "修改", path: "/system/role/" + this.id}
+            },
+            addBread() {
+                return {name: "新增", path: "/system/role/add"}
+            },
         },
         data() {
             return {
@@ -50,21 +43,11 @@
                 ruleForm: {
                     name: {required: true, message: "请输入角色名称"},
                     code: {required: true, message: "请输入角色编码"}
-                }
+                },
             }
         },
         methods: {
-            updateRole() {
-                this.$bread.splice(3);
-                if (this.id) {
-                    this.loadRole();
-                    this.$bread.push({name: "修改", path: "/system/role/" + this.id});
-                } else {
-                    this.reset();
-                    this.$bread.push({name: "新增", path: "/system/role/add"});
-                }
-            },
-            loadRole() {
+            loadData() {
                 this.api.getOne(this.id).then(({body}) => {
                     const {code, data} = body;
                     if ("000000" === code) {

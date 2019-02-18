@@ -70,12 +70,14 @@
         },
         methods: {
             updateResource() {
+                let resourceBasePath = "";
                 this.$bread.splice(3);
                 this.$bread.push({name: "页面管理", path: "/system/module/" + this.moduleId + "/page"});
                 if (this.operatorId) {
+                    resourceBasePath = "/system/module/" + this.moduleId + "/page/" + this.pageId + "/operator/" + this.operatorId + "/resource/";
                     this.$bread.push([
                         {
-                            name: "操作管理",
+                            name: "功能管理",
                             path: "/system/module/" + this.moduleId + "/page/" + this.pageId + "/operator"
                         },
                         {
@@ -84,6 +86,7 @@
                         }
                     ])
                 } else {
+                    resourceBasePath = "/system/module/" + this.moduleId + "/page/" + this.pageId + "/resource/";
                     this.$bread.push({
                         name: "接口管理",
                         path: "/system/module/" + this.moduleId + "/page/" + this.pageId + "/resource"
@@ -91,10 +94,10 @@
                 }
                 if (this.id) {
                     this.loadResource();
-                    this.$bread.push({name: "修改", path: "/system/module/" + this.moduleId + "/page/" + this.id});
+                    this.$bread.push({name: "修改", path: resourceBasePath + this.id});
                 } else {
                     this.reset();
-                    this.$bread.push({name: "新增", path: "/system/module/" + this.moduleId + "/page/add"});
+                    this.$bread.push({name: "新增", path: resourceBasePath + "add"});
                 }
             },
             loadResource() {

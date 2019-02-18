@@ -16,28 +16,21 @@
 
 <script>
     import {mapState, mapGetters} from 'vuex';
+    import {EditPage} from 'xlb-platform';
 
     export default {
         name: "edit",
         props: ["id"],
-        activated() {
-            if (!this.hasWatch) {
-                this.updateDepart();
-            }
-        },
-        watch: {
-            id() {
-                this.hasWatch = true;
-                this.updateDepart();
-            }
-        },
-        deactivated() {
-            this.reset();
-            this.hasWatch = false;
-        },
+        mixins: [EditPage],
         computed: {
             ...mapState("system_depart", ["departList", "departMap"]),
             ...mapGetters("system_depart", ["api"]),
+            addBread() {
+                return {name: "新增", path: "/system/depart/add"};
+            },
+            editBread() {
+                return {name: "修改", path: "/system/depart/" + this.id};
+            }
         },
         data() {
             return {
@@ -51,19 +44,8 @@
             }
         },
         methods: {
-            updateDepart() {
-                this.$bread.splice(3);
-                this.$store.commit("system_depart/clearDisable");
-                if (this.id) {
-                    this.$store.commit("system_depart/setDisabled", this.id);
-                    this.loadDepart();
-                    this.$bread.push({name: "修改", path: "/system/depart/" + this.id});
-                } else {
-                    this.reset();
-                    this.$bread.push({name: "新增", path: "/system/depart/add"});
-                }
-            },
-            loadDepart() {
+            loadData() {
+                this.$store.commit("system_depart/setDisabled", this.id);
                 this.api.getOne(this.id).then(({body}) => {
                     const {code, msg, data} = body;
                     if ("000000" === code) {
@@ -105,6 +87,7 @@
                 });
             },
             reset() {
+                this.$store.commit("system_depart/clearDisable");
                 this.$refs.form.resetFields();
             }
         }

@@ -21,31 +21,23 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import {EditPage} from 'xlb-platform';
 
     export default {
         name: "edit",
         props: ["id"],
-        activated() {
-            if (!this.hasWatch) {
-                this.updateProperty();
-            }
-        },
-        watch: {
-            id() {
-                this.hasWatch = true;
-                this.updateProperty();
-            }
-        },
-        deactivated() {
-            this.reset();
-            this.hasWatch = false;
-        },
+        mixins: [EditPage],
         computed: {
             ...mapGetters("system_property", ["api"]),
+            editBread() {
+                return {name: "修改", path: "/system/property/" + this.id};
+            },
+            addBread() {
+                return {name: "新增", path: "/system/property/add"};
+            }
         },
         data() {
             return {
-                hasWatch: false,
                 form: {
                     name: "", key: "", value: "", remark: ""
                 },
@@ -53,21 +45,12 @@
                     name: {required: true, message: "请输入属性名称"},
                     key: {required: true, message: "请输入属性Key"},
                     value: {required: true, message: "请输入属性值"}
-                }
+                },
+                breadSplice: 3
             }
         },
         methods: {
-            updateProperty() {
-                this.$bread.splice(3);
-                if (this.id) {
-                    this.loadProperty();
-                    this.$bread.push({name: "修改", path: "/system/property/" + this.id});
-                } else {
-                    this.reset();
-                    this.$bread.push({name: "新增", path: "/system/property/add"});
-                }
-            },
-            loadProperty() {
+            loadData() {
                 this.api.getOne(this.id).then(({body}) => {
                     const {code, data} = body;
                     if ("000000" === code) {

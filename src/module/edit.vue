@@ -19,32 +19,24 @@
 
 <script>
     import {mapState, mapGetters} from 'vuex';
+    import {EditPage} from 'xlb-platform';
 
     export default {
         name: "edit",
         props: ["id"],
-        activated() {
-            if (!this.hasWatch) {
-                this.updateModule();
-            }
-        },
-        watch: {
-            id() {
-                this.hasWatch = true;
-                this.updateModule();
-            }
-        },
-        deactivated() {
-            this.reset();
-            this.hasWatch = false;
-        },
+        mixins: [EditPage],
         computed: {
             ...mapGetters("system_module", ["api"]),
-            ...mapState("system_module", ["modules", "moduleMap"])
+            ...mapState("system_module", ["modules", "moduleMap"]),
+            editBread() {
+                return {name: "修改", path: "/system/module/" + this.id};
+            },
+            addBread() {
+                return {name: "新增", path: "/system/module/add"};
+            }
         },
         data() {
             return {
-                hasWatch: false,
                 form: {
                     name: "",
                     remark: "",
@@ -56,19 +48,18 @@
             }
         },
         methods: {
-            updateModule() {
-                this.$bread.splice(3);
-                this.$store.commit("system_module/clearDisable");
-                if (this.id) {
-                    this.$store.commit("system_module/setDisabled", this.id);
-                    this.loadModule();
-                    this.$bread.push({name: "修改", path: "/system/module/" + this.id});
-                } else {
-                    this.reset();
-                    this.$bread.push({name: "新增", path: "/system/module/add"});
-                }
-            },
-            loadModule() {
+            // updateModule() {
+            //     this.$bread.splice(3);
+            //     if (this.id) {
+            //         this.loadModule();
+            //         this.$bread.push();
+            //     } else {
+            //         this.reset();
+            //         this.$bread.push();
+            //     }
+            // },
+            loadData() {
+                this.$store.commit("system_module/setDisabled", this.id);
                 this.api.getOne(this.id).then(({body}) => {
                     const {code, msg, data} = body;
                     if ("000000" === code) {
@@ -111,6 +102,7 @@
             },
             reset() {
                 this.$refs.moduleForm.resetFields();
+                this.$store.commit("system_module/clearDisable");
             },
         }
     }

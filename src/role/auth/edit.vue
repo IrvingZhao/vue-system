@@ -20,57 +20,30 @@
                          :expand-on-click-node="false" @check-change="operatorNodeCheckedChange"/>
             </div>
         </div>
-        <!--<el-table :data="roles" slot="grid">-->
-        <!--<el-table-column property="name" label="名称"></el-table-column>-->
-        <!--<el-table-column property="code" label="编码"></el-table-column>-->
-        <!--<el-table-column label="操作" width="250">-->
-        <!--<template slot-scope="scope">-->
-        <!--<router-link append :to="scope.row.id" class="mgr-10">-->
-        <!--<el-button size="small">修改</el-button>-->
-        <!--</router-link>-->
-        <!--<router-link append :to="scope.row.id + '/auth'" class="mgr-10">-->
-        <!--<el-button size="small">权限配置</el-button>-->
-        <!--</router-link>-->
-        <!--<el-button size="small" @click="deleteRoleItem(scope.row.id)">删除</el-button>-->
-        <!--</template>-->
-        <!--</el-table-column>-->
-        <!--</el-table>-->
         <div class="button-area" slot="pagination">
             <el-button @click="save" type="primary">保存</el-button>
             <el-button>取消</el-button>
         </div>
-        <!--<el-pagination slot="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange"-->
-        <!--:current-page="pageInfo.pageIndex" :page-sizes="[10,20,50]" :page-size="pageInfo.pageSize"-->
-        <!--layout="total, sizes, prev, pager, next, jumper" :total="pageInfo.total"></el-pagination>-->
     </xlb-base-page>
 </template>
 
 <script>
     import {mapGetters, mapState} from 'vuex';
+    import {EditPage} from 'xlb-platform';
 
     export default {
         name: "edit",
         props: ["id"],
-        activated() {
-            if (!this.hasWatch) {
-                this.initPageData();
-            }
-        },
-        watch: {
-            id() {
-                this.hasWatch = true;
-                this.initPageData();
-            }
-        },
-        deactivated() {
-            this.hasWatch = false;
-        },
+        mixins: [EditPage],
         computed: {
             ...mapGetters("system_role", ["api", "getPageOperators"]),
             ...mapState("system_role", ["pageMap", "allAuthMenuTree", "allOperatorMap"]),
             allAuthMenuTreeWithRoot() {
                 return [{id: "root", name: "菜单", children: this.allAuthMenuTree}];
-            }
+            },
+            editBread() {
+                return {name: "权限配置", path: "/system/role/" + this.id + "/auth"}
+            },
         },
         data() {
             return {
@@ -84,14 +57,13 @@
                 menuCurrentNodeKey: "",
                 isInit: false,
                 execMenuChange: true,
-                hasWatch: false,
+                breadSplice: 3
             };
         },
         methods: {
-            initPageData() {
-                this.$bread.splice(3);
-                this.$bread.push({name: "权限配置", path: "/system/role/" + this.id + "/auth"});
-                console.info(this);
+            reset() {
+            },
+            loadData() {
                 this.isInit = true;
                 new Promise((resolve) => {
                     if (!this.allAuthMenuTree || this.allAuthMenuTree.length === 0) {// 如果所有授权对象不存在，加载
@@ -99,17 +71,18 @@
                     } else {
                         resolve();
                     }
-                }).then(this.loadRoleAuth);
-            },
-            loadRoleAuth() {
-                this.api.auth.getRoleAuthObject(this.id).then(({body}) => {//加载角色授权对象
-                    const {code, data} = body;
-                    if ("000000" === code) {
-                        this.checkedRoleOldMenu(data.menus);
-                        this.generateOperatorChecked(data.operators);
-                        this.isInit = false;
-                    }
-                })
+                }).then(() => {
+                    this.api.auth.getRoleAuthObject(this.id).then(({body}) => {//加载角色授权对象
+                        const {code, data} = body;
+                        if ("000000" === code) {
+                            this.checkedRoleOldMenu(data.menus);
+                            this.generateOperatorChecked(data.operators);
+                            this.$nextTick(() => {
+                                this.isInit = false;
+                            });
+                        }
+                    })
+                });
             },
             checkedRoleOldMenu(menus) {
                 menus.forEach((item) => {
@@ -173,7 +146,6 @@
                 }
             },
             menuNodeCheckedChange(data, checked) {
-                console.info(data.id + " menuNodeCheckedChange==================");
                 if (!this.execMenuChange) {//菜单树选中时间执行开关
                     this.execMenuChange = true;
                     return;
@@ -198,7 +170,6 @@
                 if (!this.menuOperatorCheckedMap[menuNode.data.page]) {
                     this.menuOperatorCheckedMap[menuNode.data.page] = [];
                 }
-                console.info(data.id + ":::::::::::" + checked);
                 if (checked) {//选中一个功能，则左侧菜单自动选中
                     if (!menuNode.checked) {
                         this.execMenuChange = false;

@@ -21,31 +21,29 @@
 
 <script>
     import {mapGetters, mapState} from 'vuex';
+    import {EditPage} from 'xlb-platform';
 
     export default {
         name: "edit",
         props: ["moduleId", "id"],
-        activated() {
-            if (!this.hasWatch) {
-                this.updatePage();
-            }
-        },
-        watch: {
-            id() {
-                this.hasWatch = true;
-                this.updatePage();
-            }
-        },
-        deactivated() {
-            this.reset();
-            this.hasWatch = false;
-        },
+        mixins:[EditPage],
         computed: {
             ...mapGetters("system_module", ["api"]),
+            addBread(){
+                return [
+                    {name: "页面管理", path: "/system/module/" + this.moduleId + "/page"},
+                    {name: "新增", path: "/system/module/" + this.moduleId + "/page/add"}
+                ]
+            },
+            editBread() {
+                return [
+                    {name: "页面管理", path: "/system/module/" + this.moduleId + "/page"},
+                    {name: "修改", path: "/system/module/" + this.moduleId + "/page/" + this.id}
+                ]
+            }
         },
         data() {
             return {
-                hasWatch: false,
                 form: {
                     name: "",
                     key: "",
@@ -60,18 +58,7 @@
             }
         },
         methods: {
-            updatePage() {
-                this.$bread.splice("3");
-                this.$bread.push({name: "页面管理", path: "/system/module/" + this.moduleId + "/page"});
-                if (this.id) {
-                    this.loadPage();
-                    this.$bread.push({name: "修改", path: "/system/module/" + this.moduleId + "/page/" + this.id});
-                } else {
-                    this.reset();
-                    this.$bread.push({name: "新增", path: "/system/module/" + this.moduleId + "/page/add"});
-                }
-            },
-            loadPage() {
+            loadData() {
                 this.api.page.getOne(this.moduleId, this.id).then(({body}) => {
                     const {code, msg, data} = body;
                     if ("000000" === code) {

@@ -25,28 +25,21 @@
 
 <script>
     import {mapState, mapGetters} from 'vuex';
+    import {EditPage} from 'xlb-platform';
 
     export default {
         name: "dic-type-edit",
         props: ["id"],
-        activated() {
-            if (!this.hasWatch) {
-                this.updateDicType();
-            }
-        },
-        watch: {
-            id() {
-                this.hasWatch = true;
-                this.updateDicType();
-            }
-        },
-        deactivated() {
-            this.reset();
-            this.hasWatch = false;
-        },
+        mixins: [EditPage],
         computed: {
             ...mapState("system_dic", ["dicTypes", "dicTypeMap"]),
             ...mapGetters("system_dic", ["api"]),
+            editBread() {
+                return {name: "修改", path: "/system/dic/" + this.id};
+            },
+            addBread() {
+                return {name: "新增", path: "/system/dic/add"};
+            }
         },
         data() {
             return {
@@ -61,24 +54,11 @@
                     name: [{required: true, message: "请输入字典类型名称"}],
                     code: [{required: true, message: "请输入字典类型编码"}]
                 },
-                hasWatch: false
             }
         },
         methods: {
-            updateDicType() {
-                this.$bread.splice(3);
-                this.$store.commit("system_dic/clearDisable");
-                if (this.id) {
-                    this.$store.commit("system_dic/setDisabled", this.id);
-                    this.loadDicType();
-                    this.$bread.push({name: "修改", path: "/system/dic/" + this.id});
-                } else {
-                    this.reset();
-                    this.$bread.push({name: "新增", path: "/system/dic/add"});
-                }
-            },
-            loadDicType() {
-
+            loadData() {
+                this.$store.commit("system_dic/setDisabled", this.id);
                 this.api.dicType.getOne(this.id).then(({body}) => {
                     const {code, msg, data} = body;
                     if ("000000" === code) {
@@ -124,6 +104,8 @@
                 });
             },
             reset() {
+                this.codePrepend = "";
+                this.$store.commit("system_dic/clearDisable");
                 this.$refs.dicTypeForm.resetFields();
             },
             parentSelect(selectDicType) {

@@ -23,27 +23,20 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import {EditPage} from 'xlb-platform';
 
     export default {
         name: "edit",
         props: ["id"],
-        activated() {
-            if (!this.hasWatch) {
-                this.updateResource();
-            }
-        },
-        watch: {
-            id() {
-                this.hasWatch = true;
-                this.updateResource();
-            }
-        },
-        deactivated() {
-            this.reset();
-            this.hasWatch = false;
-        },
+        mixins: [EditPage],
         computed: {
             ...mapGetters("system_resource", ["api"]),
+            addBread() {
+                return {name: "新增", path: "/system/resource/add"}
+            },
+            editBread() {
+                return {name: "修改", path: "/system/resource/" + this.id}
+            }
         },
         data() {
             return {
@@ -59,21 +52,11 @@
                     key: {required: true, message: "请输入接口key"},
                     url: {required: true, message: "请输入接口地址"},
                     method: {required: true, message: "请选择请求方法"},
-                }
+                },
             }
         },
         methods: {
-            updateResource() {
-                this.$bread.splice(3);
-                if (this.id) {
-                    this.loadResource();
-                    this.$bread.push({name: "修改", path: "/system/resource/" + this.id});
-                } else {
-                    this.reset();
-                    this.$bread.push({name: "新增", path: "/system/resource/add"});
-                }
-            },
-            loadResource() {
+            loadData() {
                 this.api.getOne(this.id).then(({body}) => {
                     const {code, data} = body;
                     if ("000000" === code) {

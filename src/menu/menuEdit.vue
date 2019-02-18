@@ -22,25 +22,12 @@
 
 <script>
     import {mapState, mapGetters} from "vuex";
+    import {EditPage} from 'xlb-platform';
 
     export default {
         name: "menu-add",
         props: ["id"],
-        activated() {
-            if (!this.hasChangeData) {
-                this.updateData();
-            }
-        },
-        watch: {
-            id() {
-                this.hasChangeData = true;
-                this.updateData();
-            }
-        },
-        deactivated() {
-            this.reset();
-            this.hasChangeData = false;
-        },
+        mixins: [EditPage],
         computed: {
             ...mapState("system_menu_module", ["modulePageTree", "modulePageTreeMap"]),
             ...mapState("system_menu", [
@@ -49,6 +36,12 @@
             ...mapGetters("system_menu", [
                 "api"
             ]),
+            editBread() {
+                return {name: "修改", path: "/system/menu/" + this.id};
+            },
+            addBread() {
+                return {name: "新增", path: "/system/menu/add"};
+            }
         },
         data() {
             return {
@@ -58,7 +51,7 @@
                     parent: [],
                     page: []
                 },
-                hasChangeData: false,
+                // hasChangeData: false,
                 ruleForm: {
                     name: [
                         {required: true, message: "请输入菜单名称"}
@@ -74,19 +67,7 @@
             }
         },
         methods: {
-            updateData() {
-                this.$bread.splice(3);
-                this.$store.commit("system_menu/clearDisable");
-                if (this.id) {
-                    this.$store.commit("system_menu/setDisabled", this.id);
-                    this.loadItemMenu();
-                    this.$bread.push({name: "修改", path: "/system/menu/" + this.id});
-                } else {
-                    this.reset();
-                    this.$bread.push({name: "新增", path: "/system/menu/add"});
-                }
-            },
-            loadItemMenu() {
+            loadData() {
                 this.api.menu.getOne(this.id).then(({body}) => {
                     const {code, msg, data} = body;
                     if ("000000" === code) {
