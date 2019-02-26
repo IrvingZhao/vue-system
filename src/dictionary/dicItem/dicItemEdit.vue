@@ -47,7 +47,7 @@
                     remark: ""
                 },
                 ruleForm: {
-                    name: [{required: true, message: "请输入字典项名称"}],
+                    name: [{required: true, message: "请输入字典项展示值"}],
                     code: [{required: true, message: "请输入字典项编码"}]
                 },
             }
