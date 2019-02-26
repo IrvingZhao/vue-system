@@ -9,8 +9,8 @@
             </template>
         </xlb-toolbar>
         <el-table :data="dicItemList" slot="grid">
-            <el-table-column property="name" label="字典项名称"></el-table-column>
             <el-table-column property="code" label="字典项编码"></el-table-column>
+            <el-table-column property="name" label="字典项展示值"></el-table-column>
             <el-table-column label="操作" width="200">
                 <template slot-scope="scope">
                     <router-link append :to="scope.row.id" class="mgr-10">

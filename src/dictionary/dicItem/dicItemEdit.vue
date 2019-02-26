@@ -1,10 +1,10 @@
 <template>
     <el-form :model="form" :rules="ruleForm" label-width="100px" ref="dicItemForm">
-        <el-form-item prop="name" label="名称">
-            <el-input v-model="form.name"></el-input>
-        </el-form-item>
         <el-form-item prop="code" label="编码">
             <el-input v-model="form.code"></el-input>
+        </el-form-item>
+        <el-form-item prop="name" label="展示值">
+            <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item prop="remark" label="描述">
             <el-input type="textarea" :rows="2" v-model="form.remark"></el-input>
