@@ -5,6 +5,15 @@ const outputDir = "dist";
 const assertDir = "static";
 const path = require("path");
 const xlbPathReg = new RegExp("node_modules.?xlb-");
+const proxy = {
+    "/api": {
+        // target: "http://api.gaogeche.cn:8080/app/mock/18",
+        target: "http://localhost:8080",
+        onProxyReq(proxyReq, req, res) {
+            console.log("proxy path: [" + proxyReq.method + "] http://api.gaogeche.cn:8080" + proxyReq.path)
+        }
+    }
+};
 
 module.exports = {
     publicPath: baseUrl,
@@ -15,14 +24,7 @@ module.exports = {
         quiet: true,
         host: host,
         port: port,
-        proxy: {
-            "/api": {
-                target: "http://api.gaogeche.cn:8080/app/mock/18",
-                onProxyReq(proxyReq, req, res) {
-                    console.log("proxy path: [" + proxyReq.method + "] http://api.gaogeche.cn:8080" + proxyReq.path)
-                }
-            }
-        }
+        proxy: proxy
     },
     configureWebpack: {
         entry: "./example/index.js"

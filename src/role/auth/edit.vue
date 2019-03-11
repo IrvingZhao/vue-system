@@ -64,6 +64,7 @@
             reset() {
             },
             loadData() {
+                console.info(this);
                 this.isInit = true;
                 new Promise((resolve) => {
                     if (!this.allAuthMenuTree || this.allAuthMenuTree.length === 0) {// 如果所有授权对象不存在，加载
@@ -204,7 +205,7 @@
                 this.api.auth.saveRoleAuthObject(this.id, {
                     menus: Object.keys(checkedMenuKeys),
                     pages: Object.keys(checkedPageKeys),
-                    operators: Object.keys(checkedPageKeys)
+                    operators: Object.keys(checkedOperatorKeys)
                 }).then(({body}) => {
                     const {code, msg} = body;
                     if ("000000" === code) {

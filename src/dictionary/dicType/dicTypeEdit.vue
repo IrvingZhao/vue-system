@@ -65,7 +65,7 @@
                         if (data && data.id) {
                             let dataCode = data.code.split(".");
                             data.code = dataCode.pop();
-                            this.codePrepend = dataCode.join(".");
+                            this.codePrepend = dataCode.join(".")+".";
                             data.parent = this.$util.getTreePath(this.dicTypeMap, data.parent);
                             this.form = data;
                         } else {
@@ -83,7 +83,7 @@
                         let data = {...this.form};
                         data.parent = data.parent[data.parent.length - 1];
                         data.id = this.id;
-                        data.code = this.codePrepend + "." + data.code;
+                        data.code = this.codePrepend + data.code;
                         this.api.dicType.save(data).then(({body}) => {
                             const {code, msg} = body;
                             if (code === "000000") {

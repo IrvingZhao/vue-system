@@ -21,6 +21,7 @@ export default {
             state.roles = roles.list;
         },
         updateAllAuthObject(state, {menus, operators}) {
+            console.info(menus);
             state.allAuthMenuTree = Vue.$util.generateTree(menus);
 
             let pageMap = {};

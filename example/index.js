@@ -8,7 +8,7 @@ import Plugin from 'xlb-plugin';
 import module from '../src/index';
 
 Vue.use(ElementUI);
-Vue.use(Platform);
+Vue.use(Platform, {enableAuth: false});
 Vue.use(Plugin);
 
 let vueConfig = Platform.getVueConfig([
@@ -20,4 +20,5 @@ let vueConfig = Platform.getVueConfig([
     }
 ]);
 
-new Vue(vueConfig).$mount("#app");
+let vue = new Vue(vueConfig).$mount("#app");
+console.info(vue);

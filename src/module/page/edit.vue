@@ -79,6 +79,7 @@
                                     type: 'success'
                                 });
                                 this.$router.push("/system/module/" + this.moduleId + "/page");
+                                this.$store.dispatch("system_module/updateAllModulePage");//页面保存后，更新
                             }
                         });
                     } else {

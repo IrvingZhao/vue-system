@@ -14,6 +14,9 @@
                 <el-option v-for="item in requestMethods" :key="item" :value="item" :label="item"></el-option>
             </el-select>
         </el-form-item>
+        <el-form-item prop="auth" label="是否授权">
+            <el-switch v-model="form.auth" active-value="Y" inactive-value="N"></el-switch>
+        </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="save">保存</el-button>
             <el-button @click="reset">重置</el-button>
@@ -45,7 +48,8 @@
                     name: "",
                     key: "",
                     url: "",
-                    method: ""
+                    method: "",
+                    auth: "Y"
                 },
                 ruleForm: {
                     name: {required: true, message: "请输入接口名称"},
